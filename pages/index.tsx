@@ -1,7 +1,12 @@
 import type { NextPage } from "next";
+import { Logo } from "../components/layout/Logo";
 
 const Home: NextPage = () => {
-  return <h1>HOLAA</h1>;
+  return (
+    <>
+      <Logo />
+    </>
+  );
 };
 
 export default Home;

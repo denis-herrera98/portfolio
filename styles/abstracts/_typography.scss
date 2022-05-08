@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@300;700&display=swap');
+
+$font-inter: 'Inter', sans-serif;
+$font-fira: 'Fira Code', monospace;
+
+
+@font-face {
+  font-family: fira-code-400;
+  src: $font-fira;
+  font-weight: 400;
+}
+

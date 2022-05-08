@@ -1,0 +1,9 @@
+@use '../abstracts/colors' as *;
+@use '../abstracts/breakpoints' as *;
+
+:root {
+    @each $color, $value in $colors {
+        --clr-#{$color}: #{$value};
+    }
+
+}

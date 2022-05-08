@@ -1,0 +1,9 @@
+@use "sass:map";
+
+$colors: (
+  "primary": "#6CFACD",
+  "secondary": "#E58156",
+  "body-color":rgba(42, 46, 53, 100%),
+  "grey-10": rgba(58, 63, 73, 0.12),
+  "grey-65": rgba(58, 63, 73, 0.65)
+);

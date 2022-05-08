@@ -1,0 +1,25 @@
+body {
+	
+	height: 100vh;
+	color: white;
+	background-color: var(--clr-body-color);
+
+	&:before {
+
+		content: '';
+		height: 100%;
+		width: 100%;
+
+		background-image: url('../../assets/code-background.jpg');
+		background-size: cover; 
+		background-repeat: no-repeat; 
+		background-position: 40% 0%;
+
+		position: absolute;
+		z-index: -1;
+		opacity: .02;
+		top: 0;
+	
+	}
+
+}
