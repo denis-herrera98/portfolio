@@ -1,19 +1,14 @@
-@use '../abstracts';
+@use '../abstracts/typography' as *;
 
 .logo {
-    font-family: 'Fira code';
+    font-family: $font-fira;
     font-weight: 400;
     
-    margin-top: 2.2rem;
-    margin-left: 2.2rem;
-    
     &__title {
-        font-size: 2rem;
-        line-height: 2;
+        padding-bottom: .5rem;
     }
 
     &__subtitle {
-        font-size: 1.6rem;
         color: var(--clr-primary);
     }
 }

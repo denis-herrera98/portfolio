@@ -1,14 +1,16 @@
 body {
 	
-	height: 100vh;
 	color: white;
 	background-color: var(--clr-body-color);
+
+	height: 100vh;
+	padding: 2.5rem;
 
 	&:before {
 
 		content: '';
 		height: 100%;
-		width: 100%;
+		width: 70%;
 
 		background-image: url('../../assets/code-background.jpg');
 		background-size: cover; 
@@ -19,6 +21,7 @@ body {
 		z-index: -1;
 		opacity: .02;
 		top: 0;
+		right: 0;
 	
 	}
 

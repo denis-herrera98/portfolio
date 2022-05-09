@@ -1,0 +1,28 @@
+@use '../abstracts/typography' as *;
+
+.section {
+
+    &__title {
+        color: var(--clr-secondary);
+        font-size: clamp(2.2rem, 5.5vw, 5rem);
+        font-weight: 700;
+        margin-bottom: 3rem;
+    }
+
+    &__subtitle {
+        color: var(--clr-primary);
+        font-size: clamp(2.0rem, 3.5vw, 3.8rem);
+        font-family: $font-fira;
+        font-weight: 400;
+        margin-bottom: 2rem;
+    }
+
+
+    &__description {
+        line-height: 3rem;
+        font-size: clamp(1.8rem, 2.2vw, 2.6rem);
+    }
+
+}
+
+

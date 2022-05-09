@@ -1,0 +1,45 @@
+
+.sidebar {
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    position: relative;
+    
+
+    .social-links {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+    }
+
+    .page-indicators {
+        top: 50%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .page-indicator {
+            width: 20px;
+            border: 2px solid white; 
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+
+            &__active {
+                width: 40px;    
+                border: 2px solid var(--clr-primary); 
+            }
+        }
+
+    }
+}
+

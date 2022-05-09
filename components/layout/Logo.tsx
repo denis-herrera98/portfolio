@@ -1,8 +1,8 @@
 export const Logo = () => {
   return (
     <div className="logo">
-      <p className="logo__title">Denis Herrera </p>
-      <p className="logo__subtitle"> Full Stack Developer</p>
+      <h4 className="logo__title">Denis Herrera </h4>
+      <h5 className="logo__subtitle"> Full Stack Developer</h5>
     </div>
   );
 };

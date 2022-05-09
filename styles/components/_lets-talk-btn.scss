@@ -1,0 +1,12 @@
+.lets-talk-btn {
+    background-color: var(--clr-grey-65);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    transition: background-color, transform 200ms ease-in-out;
+
+    &:hover {
+        background-color: lighten(rgba(58, 63, 73, 0.65), 20% );
+        transform: scale(1.1)
+    }
+
+}

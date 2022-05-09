@@ -1,0 +1,30 @@
+@use '../abstracts/breakpoints' as *;
+
+.social-network {
+    display: flex;
+    align-items: center; 
+    gap: 1rem;
+    color: white;
+
+    border-radius: 50%;
+    transition: background-color, transform 200ms ease-in-out;
+
+    &:hover {
+        background-color: var(--clr-grey-65);
+        transform: scale(1.1)
+    }
+
+
+    &__name {
+        font-size: 2rem;
+        display: none;
+
+        @media (min-width: map-get($breakpoints, "tablet")) {
+            display: block;
+        }
+    }
+
+    &__icon {
+        filter: invert(100%) sepia(96%) saturate(0%) hue-rotate(54deg) brightness(105%) contrast(102%);
+    }
+}

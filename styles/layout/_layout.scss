@@ -1,0 +1,25 @@
+.content {
+    display: flex; 
+    height: 95%;
+    align-items: flex-start;    
+
+    &__main {
+        margin-left: 30px;
+        height: 100%;
+        flex: 1;
+    }
+}
+
+.next-page-btn {
+
+    position: absolute;
+    left: 50%;
+    bottom: 3.5%;
+
+    &__icon {
+        cursor: pointer;
+        filter: invert(81%) sepia(38%) saturate(536%) hue-rotate(99deg) brightness(104%) contrast(96%);
+    }
+} 
+
+
