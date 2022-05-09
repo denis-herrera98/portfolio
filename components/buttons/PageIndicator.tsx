@@ -7,8 +7,14 @@ interface Props {
 export const PageIndicator = ({ path }: Props) => {
   const router = useRouter();
 
+  const handleOnClick = () => {
+    router.push(path);
+  };
+
   return (
-    <div
+    <button
+      type="button"
+      onClick={handleOnClick}
       className={
         path === router.pathname
           ? "page-indicator page-indicator__active"

@@ -34,6 +34,8 @@
             border-radius: 0 3px 3px 0;
             cursor: pointer;
 
+            transition: width 200ms ease-out;
+
             &__active {
                 width: 40px;    
                 border: 2px solid var(--clr-primary); 

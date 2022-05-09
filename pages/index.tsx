@@ -3,7 +3,7 @@ import { Section } from "../components/section/Section";
 
 const Home: NextPage = () => {
   return (
-    <div className="home-page">
+    <div className="home-page page">
       <Section
         title="Who am I?"
         subtitle="Tuerquita web"
