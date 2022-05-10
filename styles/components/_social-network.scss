@@ -7,10 +7,9 @@
     color: white;
 
     border-radius: 50%;
-    transition: background-color, transform 200ms ease-in-out;
+    transition: transform 200ms ease-in-out;
 
     &:hover {
-        background-color: var(--clr-grey-65);
         transform: scale(1.1)
     }
 

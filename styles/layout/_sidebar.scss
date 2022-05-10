@@ -6,8 +6,8 @@
     align-items: flex-start;
     flex-direction: column;
     justify-content: flex-end;
-
     position: relative;
+    flex-shrink: 0;
     
 
     .social-links {
@@ -27,6 +27,7 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
+        width: 40px;
 
         .page-indicator {
             width: 20px;

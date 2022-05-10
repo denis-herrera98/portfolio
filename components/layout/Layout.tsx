@@ -1,55 +1,80 @@
-import { NextPageButton } from "../buttons/NextPageButton";
-import { CSSTransition } from "react-transition-group";
-import { useState, useLayoutEffect, useRef, useEffect } from "react";
+import {
+  Transition,
+  TransitionGroup,
+  TransitionStatus,
+} from "react-transition-group";
+import { useRouter } from "next/router";
+
 import { NavBar } from "./NavBar";
 import { SideBar } from "./SideBar";
+import { NextPageButton } from "../buttons/NextPageButton";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
 }
 
-let key = 0;
 export const Layout = ({ children }: Props) => {
-  key++;
+  const router = useRouter();
+
   return (
     <>
       <NavBar />
       <div className="content">
         <SideBar />
-        <ChildrenWithTransition key={key}>
-          <main className="content__main">{children}</main>
-        </ChildrenWithTransition>
+        <TransitionGroup>
+          <Transition
+            key={router.pathname}
+            timeout={1000}
+            mountOnEnter={true}
+            unmountOnExit={true}
+            appear={true}
+          >
+            {(status) => (
+              <ChildrenWithTransition status={status}>
+                {children}
+              </ChildrenWithTransition>
+            )}
+          </Transition>
+        </TransitionGroup>
       </div>
       <NextPageButton />
     </>
   );
 };
 
-interface TransitionProps {
-  children: JSX.Element | JSX.Element[];
+const duration = 300;
+
+const defaultStyle = {
+  transition: `transform ${duration}ms ease-in-out`,
+  transform: "translateY(-100%)",
+};
+
+interface TransitionStyles {
+  [index: string]: React.CSSProperties;
 }
 
-function ChildrenWithTransition({ children }: TransitionProps) {
-  const [inProp, setInProp] = useState(false);
-  const firstUpdate = useRef(true);
+const transitionStyles: TransitionStyles = {
+  entering: { transform: "translateY(-100%)" },
+  entered: { transform: "translateY(0%)" },
+  exiting: { transform: "translateY(0%)" },
+  exited: { transform: "translateY(100%)" },
+};
 
-  useLayoutEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
-    console.log("SE MONTO");
-    setInProp(true);
+interface ChildrenWithTransitionProps {
+  children: JSX.Element | JSX.Element[];
+  status: TransitionStatus;
+}
 
-    return () => {
-      console.log("SE DESPICHO");
-      setInProp(false);
-    };
-  }, []);
-
+function ChildrenWithTransition({
+  children,
+  status,
+}: ChildrenWithTransitionProps) {
   return (
-    <CSSTransition in={inProp} timeout={200} classNames="content__main">
+    <main
+      className="content__main"
+      style={{ ...defaultStyle, ...transitionStyles[status] }}
+    >
       {children}
-    </CSSTransition>
+    </main>
   );
 }
