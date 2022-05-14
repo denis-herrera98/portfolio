@@ -1,20 +1,7 @@
-import Image from "next/image";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 
+import { strokeVariants } from "../../configs/framer-motion";
 import { useNextPage } from "../../hooks/useNextPage";
-
-const strokeVariants: Variants = {
-  hidden: { pathLength: 0 },
-  visible: {
-    pathLength: 1,
-    type: "spring",
-    transition: { duration: 1.0, bounce: 0 },
-  },
-  onHover: {
-    scale: 1.025,
-    stroke: "#E58156",
-  },
-};
 
 export const NextPageButton = () => {
   const { showNextPage } = useNextPage();
