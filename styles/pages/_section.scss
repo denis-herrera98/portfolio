@@ -4,14 +4,14 @@
 
     &__title {
         color: var(--clr-secondary);
-        font-size: clamp(2.0rem, 3.4vw, 6.5rem);
+        font-size: clamp(3.0rem, 7vw, 5rem);
         font-weight: 700;
         margin-bottom: 3rem;
     }
 
     &__subtitle {
         color: var(--clr-primary);
-        font-size: clamp(1.8rem, 2.3vw, 3rem);
+        font-size: clamp(2.2rem, 6vw, 4.3rem);
         font-family: $font-fira;
         font-weight: 400;
         margin-bottom: 2rem;
@@ -19,8 +19,8 @@
 
 
     &__description {
-        line-height: 3rem;
-        font-size: clamp(1.6rem, 1.9vw, 2.2rem);
+        line-height: 5rem;
+        font-size: clamp(1.8rem, 5vw, 3rem);
     }
 
 }

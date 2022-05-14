@@ -26,6 +26,7 @@ export const NextPageButton = () => {
           r="14"
           stroke={"var(--clr-primary)"}
           fill="transparent"
+          strokeWidth={2}
           variants={strokeVariants}
         />
         <motion.line
@@ -35,6 +36,7 @@ export const NextPageButton = () => {
           y2="20"
           stroke={"var(--clr-primary)"}
           fill="transparent"
+          strokeWidth={2}
           variants={strokeVariants}
         />
         <motion.line
@@ -44,6 +46,7 @@ export const NextPageButton = () => {
           y2="20"
           stroke={"var(--clr-primary)"}
           fill="transparent"
+          strokeWidth={2}
           variants={strokeVariants}
         />
         <motion.line
@@ -53,6 +56,7 @@ export const NextPageButton = () => {
           y2="20"
           stroke={"var(--clr-primary)"}
           fill="transparent"
+          strokeWidth={2}
           variants={strokeVariants}
         />
       </motion.svg>
