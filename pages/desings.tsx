@@ -1,3 +1,5 @@
+import { usePresence } from "framer-motion";
+import { useEffect } from "react";
 import type { NextPage } from "next";
 import { Section } from "../components/section/Section";
 

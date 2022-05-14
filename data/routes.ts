@@ -1,2 +1,7 @@
-export type IRoute = { path: `/${string}` };
-export const ROUTES = ["/", "/tuerquita-web", "/tuerquita-bot", "/desings"];
+export type IRoute = `/${string}`;
+export const ROUTES: IRoute[] = [
+  "/",
+  "/tuerquita-web",
+  "/tuerquita-bot",
+  "/desings",
+];

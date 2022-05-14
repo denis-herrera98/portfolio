@@ -1,3 +1,5 @@
+import { usePresence } from "framer-motion";
+import { useEffect } from "react";
 import type { NextPage } from "next";
 import { Section } from "../components/section/Section";
 
@@ -6,7 +8,7 @@ const Home: NextPage = () => {
     <div className="home-page page">
       <Section
         title="Who am I?"
-        subtitle="Tuerquita web"
+        subtitle="ABOUT MEEEweb"
         description="I'm a passionate Full Stack Developer with over 3 years of experience,
         currently working in the industry."
       />

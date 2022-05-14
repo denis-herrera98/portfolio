@@ -7,9 +7,13 @@ interface Props {
 export const Section = ({ title, subtitle, description }: Props) => {
   return (
     <section className="section">
-      <h1 className="section__title">{title}</h1>
-      {subtitle && <h2 className="section__subtitle">{subtitle}</h2>}
-      <p className="section__description">{description}</p>
+      <header>
+        <h1 className="section__title">{title}</h1>
+      </header>
+      <main>
+        {subtitle && <h2 className="section__subtitle">{subtitle}</h2>}
+        <p className="section__description">{description}</p>
+      </main>
     </section>
   );
 };

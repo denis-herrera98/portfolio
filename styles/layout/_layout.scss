@@ -4,9 +4,15 @@
     align-items: flex-start;    
 
     &__main {
+        overflow: hidden;
         margin-left: 30px;
         height: 100%;
         flex: 1;
+    }
+
+    .transition-group {
+        height: 100%;
+        overflow: hidden;
     }
 }
 
@@ -14,12 +20,12 @@
 
     position: absolute;
     left: 50%;
-    bottom: 3.5%;
+    bottom: 5%;
 
     &__icon {
         cursor: pointer;
         filter: invert(81%) sepia(38%) saturate(536%) hue-rotate(99deg) brightness(104%) contrast(96%);
     }
-} 
 
+} 
 

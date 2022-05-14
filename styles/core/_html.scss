@@ -5,4 +5,10 @@ html {
 	font-family: $font-inter;
 }
 
+html,
+body {
+	overflow: hidden;
+	height: 100%;
+}
+
 
