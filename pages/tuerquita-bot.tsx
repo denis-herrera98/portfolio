@@ -1,12 +1,14 @@
-import { usePresence } from "framer-motion";
-import { useEffect } from "react";
 import type { NextPage } from "next";
 import { Section } from "../components/section/Section";
 
 const TuerquitaBot: NextPage = () => {
   return (
-    <div className="home-page">
-      <Section title="BOOOOT" subtitle="BOOOOT" description="BOOOOT" />
+    <div className="page">
+      <h1 className="page__title"> Personal Project </h1>
+
+      <div className="project-page">
+        <Section title="BOOOOT" description="BOOOOT" />
+      </div>
     </div>
   );
 };

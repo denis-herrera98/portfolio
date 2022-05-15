@@ -1,0 +1,49 @@
+@use '../abstracts/breakpoints' as *;
+
+.page {
+    height: 100%;
+    padding-top: 8em;
+    padding-bottom: 8em;
+
+	display: flex;
+	flex-direction: column;
+
+    &__title {
+        color: var(--clr-secondary);
+        font-size: clamp(3.0rem, 3vw, 5.5rem);
+        font-weight: 700;
+        margin-bottom: 3rem;
+        grid-column: span 2;
+        width: 100%;
+    }
+}
+
+.project-page {
+	display: flex;
+	flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+
+    @media (min-width: map-get($breakpoints, "tablet")) {
+	    display: grid;
+        grid-template-columns: 2fr 1fr;
+        align-content: center;
+        gap: 2em;
+    }
+
+}
+
+
+.next-page-btn {
+
+    position: absolute;
+    left: 50%;
+    bottom: 3%;
+
+    &__icon {
+        cursor: pointer;
+        filter: invert(81%) sepia(38%) saturate(536%) hue-rotate(99deg) brightness(104%) contrast(96%);
+    }
+
+} 
+

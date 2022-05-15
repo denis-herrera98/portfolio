@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 
-import { strokeVariants } from "../../configs/framer-motion";
+import { strokeVariants, pressVariants } from "../../configs/framer-motion";
 import { useNextPage } from "../../hooks/useNextPage";
+
+const myVariants = { ...strokeVariants, ...pressVariants };
 
 export const NextPageButton = () => {
   const { showNextPage } = useNextPage();
@@ -13,6 +15,8 @@ export const NextPageButton = () => {
         initial="hidden"
         animate="visible"
         whileHover="onHover"
+        variants={myVariants}
+        whileTap="whileTap"
         transition={{
           type: "spring",
           damping: 10,
@@ -27,7 +31,7 @@ export const NextPageButton = () => {
           stroke={"var(--clr-primary)"}
           fill="transparent"
           strokeWidth={2}
-          variants={strokeVariants}
+          variants={myVariants}
         />
         <motion.line
           x1="15"
@@ -37,7 +41,7 @@ export const NextPageButton = () => {
           stroke={"var(--clr-primary)"}
           fill="transparent"
           strokeWidth={2}
-          variants={strokeVariants}
+          variants={myVariants}
         />
         <motion.line
           x1="10"
@@ -47,7 +51,7 @@ export const NextPageButton = () => {
           stroke={"var(--clr-primary)"}
           fill="transparent"
           strokeWidth={2}
-          variants={strokeVariants}
+          variants={myVariants}
         />
         <motion.line
           x1="20"
@@ -57,7 +61,7 @@ export const NextPageButton = () => {
           stroke={"var(--clr-primary)"}
           fill="transparent"
           strokeWidth={2}
-          variants={strokeVariants}
+          variants={myVariants}
         />
       </motion.svg>
     </button>

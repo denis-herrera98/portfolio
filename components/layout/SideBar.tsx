@@ -1,5 +1,4 @@
-import GithubIcon from "../../assets/github-icon.svg";
-import LinkedIn from "../../assets/linkedin-icon.svg";
+import { GithubIcon, LinkedIn } from "../assets/svgs";
 
 import { SocialNetwork } from "../buttons/SocialNetwork";
 import { PageIndicator } from "../buttons/PageIndicator";

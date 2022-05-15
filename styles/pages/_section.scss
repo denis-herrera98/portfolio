@@ -1,17 +1,20 @@
 @use '../abstracts/typography' as *;
+@use '../abstracts/breakpoints' as *;
 
 .section {
 
-    &__title {
-        color: var(--clr-secondary);
-        font-size: clamp(3.0rem, 7vw, 5rem);
-        font-weight: 700;
-        margin-bottom: 3rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    flex: 1;
+
+    @media (min-width: map-get($breakpoints, "tablet")) {
+	    display: block;
     }
 
-    &__subtitle {
+    &__title {
+        font-size: clamp(2.2rem, 2.5vw, 4.2rem);
         color: var(--clr-primary);
-        font-size: clamp(2.2rem, 6vw, 4.3rem);
         font-family: $font-fira;
         font-weight: 400;
         margin-bottom: 2rem;
@@ -20,7 +23,7 @@
 
     &__description {
         line-height: 5rem;
-        font-size: clamp(1.8rem, 5vw, 3rem);
+        font-size: clamp(1.8rem, 2vw, 2.7rem);
     }
 
 }

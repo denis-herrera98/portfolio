@@ -12,6 +12,7 @@ import {
 import { Layout } from "../components/layout/Layout";
 import "../styles/app.scss";
 import { useNextPage } from "../hooks/useNextPage";
+import { NextPageButton } from "../components/buttons/NextPageButton";
 
 let variants = {
   startFromDownScroll: { y: "0%", transform: "translateY(-80%)", opacity: 0 },
@@ -86,7 +87,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       />
       <Layout>
         <AnimatePresence exitBeforeEnter>
-          <motion.div
+          <motion.main
+            className="content__main"
             // animate={controls}
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -96,9 +98,10 @@ function MyApp({ Component, pageProps, router }: AppProps) {
             transition={{ type: "linear", duration: 0.4 }}
           >
             <Component {...pageProps} key={url} />
-          </motion.div>
+          </motion.main>
         </AnimatePresence>
       </Layout>
+      <NextPageButton />
     </>
   );
 }

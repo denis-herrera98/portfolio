@@ -1,21 +1,21 @@
 import { motion, useMotionValue, Variants } from "framer-motion";
 import { useRouter } from "next/router";
 
-import { strokeVariants } from "../../configs/framer-motion";
+import { pressVariants, strokeVariants } from "../../configs/framer-motion";
 
 interface Props {
   path: string;
 }
 
-const expand = {
+const myVariants = {
   ...strokeVariants,
+  ...pressVariants,
   activated: { pathLength: 1 },
   desactivated: { pathLength: 0.5 },
 };
 
 export const PageIndicator = ({ path }: Props) => {
   const router = useRouter();
-  const pathLength = useMotionValue(0);
 
   const handleOnClick = () => {
     router.push(path);
@@ -27,9 +27,11 @@ export const PageIndicator = ({ path }: Props) => {
     <button type="button" onClick={handleOnClick}>
       <motion.svg
         width="40"
-        height="3"
+        height="5"
         initial="hidden"
         animate={isActive ? "activated" : "desactivated"}
+        whileHover="whileHover"
+        variants={pressVariants}
       >
         <motion.line
           transition={{
@@ -40,8 +42,8 @@ export const PageIndicator = ({ path }: Props) => {
           x1="0"
           y2="1"
           stroke={isActive ? "var(--clr-primary)" : "white"}
-          strokeWidth="3"
-          variants={expand}
+          strokeWidth="5"
+          variants={myVariants}
           custom={isActive}
           strokeLinecap="round"
           strokeLinejoin="round"

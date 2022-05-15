@@ -1,0 +1,55 @@
+@use '../abstracts/typography' as *;
+@use '../abstracts/breakpoints' as *;
+
+.technologies {
+
+    @media (min-width: map-get($breakpoints, "tablet")) {
+        max-width: 40em;
+    }
+
+    &__title {
+        white-space: nowrap;
+        color: var(--clr-primary);
+        font-family: $font-fira;
+        font-size: clamp(2rem, 2.5vw, 4.2rem);
+        width: 100%;
+        text-align: center;
+    }
+
+    .technologies__grid {
+        display: flex;
+        justify-content: space-between;
+        
+        background-color: var(--clr-grey-10);
+        position: relative;
+        padding: 2em;
+        width: 100%;
+
+        @media (min-width: map-get($breakpoints, "tablet")) {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1em;
+        }
+
+    }
+}
+
+.technology {
+
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    max-width: 12rem;
+
+    p {
+        display: none;
+
+
+        @media (min-width: map-get($breakpoints, "tablet")) {
+            display: block;
+        }
+    }
+}
+
