@@ -6,7 +6,7 @@ const TuerquitaBot: NextPage = () => {
     <div className="page">
       <h1 className="page__title"> Personal Project </h1>
 
-      <div className="project-page">
+      <div className="page__body">
         <Section title="BOOOOT" description="BOOOOT" />
       </div>
     </div>

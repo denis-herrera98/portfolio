@@ -2,7 +2,7 @@
 
 .page {
     height: 100%;
-    padding-top: 8em;
+    padding-top: 12em;
     padding-bottom: 8em;
 
 	display: flex;
@@ -12,23 +12,21 @@
         color: var(--clr-secondary);
         font-size: clamp(3.0rem, 3vw, 5.5rem);
         font-weight: 700;
-        margin-bottom: 3rem;
-        grid-column: span 2;
-        width: 100%;
     }
-}
 
-.project-page {
-	display: flex;
-	flex-direction: column;
-    flex: 1;
-    justify-content: space-between;
+    &__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: space-between;
 
-    @media (min-width: map-get($breakpoints, "tablet")) {
-	    display: grid;
-        grid-template-columns: 2fr 1fr;
-        align-content: center;
-        gap: 2em;
+        @media (min-width: map-get($breakpoints, "tablet")) {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            align-content: center;
+            gap: 5em;
+        }
+
     }
 
 }

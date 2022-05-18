@@ -29,7 +29,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 1em;
+            gap: 2em;
         }
 
     }
@@ -40,12 +40,11 @@
     display: flex;
     align-items: center;
     gap: 1em;
-    width: 100%;
-    max-width: 12rem;
+    margin: 0 auto;
 
     p {
         display: none;
-
+        font-size: 2em;
 
         @media (min-width: map-get($breakpoints, "tablet")) {
             display: block;

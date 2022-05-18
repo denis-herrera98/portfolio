@@ -23,7 +23,7 @@ const TuerquitaWeb: NextPage = () => {
   return (
     <div className="page ">
       <h1 className="page__title"> Personal Project </h1>
-      <div className="project-page">
+      <div className="page__body">
         <Section
           title="Tuerquita web"
           description="A web page developed in Next.js. It contains a Party Creator where you can find other League Of Legends players to play with and a real-time chat."

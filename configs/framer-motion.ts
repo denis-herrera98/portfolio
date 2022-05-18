@@ -14,6 +14,6 @@ export const strokeVariants: Variants = {
 };
 
 export const pressVariants: Variants = {
-  whileHover: { scale: 1.2 },
+  whileHover: { scale: 1.2, stroke: "#E58156" },
   whileTap: { scale: 0.8 },
 };
