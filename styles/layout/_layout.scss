@@ -2,12 +2,41 @@
     display: flex; 
     height: 95%;
     align-items: flex-start;    
+    overflow: hidden;
 
     &__main {
         overflow: hidden;
         margin-left: 30px;
         height: 100%;
         flex: 1;
+        position: relative;
+
+    }
+
+    &__square {
+        display: flex;
+        align-items: center;
+
+        height: 100%;
+        width: 50%;
+        position: absolute;
+        z-index: 1;
+        background-color: var(--clr-body-color);
+        
+        &-left {
+            justify-content: flex-end;
+            background-color: blue;
+        }
+
+        &-right {
+            justify-content: flex-start;
+            background-color: red;
+        }
+
+        &-message {
+            font-size: clamp(3.0rem, 5vw, 6.5rem);
+        }
+
     }
 
     .transition-group {

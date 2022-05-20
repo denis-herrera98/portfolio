@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
-import { LoadingScreen } from "../components/ui/LoadingScreen";
 
 const Loading: NextPage = () => {
-  return <LoadingScreen />;
+  return <>Hola</>;
 };
 
 export default Loading;

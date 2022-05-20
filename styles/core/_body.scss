@@ -5,24 +5,5 @@ body {
 
 	height: 100vh;
 	padding: 2.5em;
-
-	&:before {
-
-		content: '';
-		height: 100%;
-		width: 70%;
-
-		background-image: url('../../assets/code-background.jpg');
-		background-size: cover; 
-		background-repeat: no-repeat; 
-		background-position: 40% 0%;
-
-		position: absolute;
-		z-index: -1;
-		opacity: .02;
-		top: 0;
-		right: 0;
 	
-	}
-
 }

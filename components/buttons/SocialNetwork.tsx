@@ -14,8 +14,8 @@ export const SocialNetwork = ({ name, icon, height, width }: Props) => {
   return (
     <motion.div
       className="social-network"
-      whileHover="whileHover"
       whileTap="whileTap"
+      whileHover={{ opacity: 0.7 }}
       variants={pressVariants}
     >
       <Image

@@ -26,9 +26,7 @@
             align-content: center;
             gap: 5em;
         }
-
     }
-
 }
 
 
@@ -37,6 +35,7 @@
     position: absolute;
     left: 50%;
     bottom: 3%;
+    z-index: 1000;
 
     &__icon {
         cursor: pointer;
