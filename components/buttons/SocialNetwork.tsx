@@ -12,12 +12,7 @@ interface Props {
 
 export const SocialNetwork = ({ name, icon, height, width }: Props) => {
   return (
-    <motion.div
-      className="social-network"
-      whileTap="whileTap"
-      whileHover={{ opacity: 0.7 }}
-      variants={pressVariants}
-    >
+    <div className="social-network">
       <Image
         src={icon}
         height={height}
@@ -25,16 +20,7 @@ export const SocialNetwork = ({ name, icon, height, width }: Props) => {
         alt="social-network"
         className="social-network__icon"
       />
-      <AnimatePresence>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="social-network__name"
-        >
-          {name}
-        </motion.p>
-      </AnimatePresence>
-    </motion.div>
+      <p className="social-network__name">{name}</p>
+    </div>
   );
 };

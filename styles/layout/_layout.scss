@@ -14,29 +14,34 @@
     }
 
     &__square {
-        display: flex;
-        align-items: center;
-
+        position: absolute;
         height: 100%;
         width: 50%;
-        position: absolute;
         z-index: 1;
         background-color: var(--clr-body-color);
         
         &-left {
-            justify-content: flex-end;
-            background-color: blue;
+             transform: translateX(-100%);
+             // background-color: red;
         }
 
         &-right {
-            justify-content: flex-start;
-            background-color: red;
+             transform: translateX(200%);
+             // background-color: blue;
         }
 
         &-message {
             font-size: clamp(3.0rem, 5vw, 6.5rem);
         }
 
+        &-ball {
+            bottom: -50%;
+            border-radius: 50%;
+
+            width: 1px;
+            position: relative;
+            z-index: 2;
+        }
     }
 
     .transition-group {

@@ -5,10 +5,12 @@
     font-weight: 400;
 
     &__title {
+        font-size: clamp(1.6rem, 2vw, 2rem);
         padding-bottom: .5rem;
     }
 
     &__subtitle {
+        font-size: clamp(1.4rem, 1.6vw, 1.6rem);
         color: var(--clr-primary);
     }
 }

@@ -20,11 +20,14 @@ import { useRouter } from "next/router";
 type SCROLL_ACTION = "DOWN" | "UP";
 type PLACE = "LEFT" | "RIGHT";
 
-const variants: Variants = {
+const DURATION = 0.3;
+
+const squareVariants: Variants = {
   initial: (place: PLACE) => {
     if (place === "LEFT") {
       return {
         y: "0%",
+        x: "-100%",
         width: "50%",
         height: "100%",
         transition: { duration: 0 },
@@ -33,6 +36,7 @@ const variants: Variants = {
     return {
       width: "50%",
       height: "100%",
+      x: "200%",
       y: "0%",
       transition: { duration: 0 },
     };
@@ -42,16 +46,16 @@ const variants: Variants = {
       return {
         x: ["-100%", "0%"],
         y: "0%",
-        transition: { duration: 1 },
+        transition: { duration: DURATION },
       };
     }
     return {
       x: ["200%", "100%"],
       y: "0%",
-      transition: { duration: 1 },
+      transition: { duration: DURATION },
     };
   },
-  exiting: (place: PLACE) => {
+  splitten: (place: PLACE) => {
     if (place === "LEFT") {
       return {
         width: "100%",
@@ -61,7 +65,6 @@ const variants: Variants = {
         transition: { duration: 0 },
       };
     }
-
     return {
       width: "100%",
       height: "50%",
@@ -70,23 +73,105 @@ const variants: Variants = {
       transition: { duration: 0 },
     };
   },
+  exiting: (place: PLACE) => {
+    if (place === "LEFT") {
+      return {
+        x: "0%",
+        y: "-100%",
+        transition: { duration: DURATION },
+      };
+    }
+
+    return {
+      x: "0%",
+      y: "200%",
+      transition: { duration: DURATION },
+    };
+  },
   completed: (place: PLACE) => {
     if (place === "LEFT") {
       return {
-        width: "100%",
-        height: "50%",
+        width: "50%",
+        height: "100%",
         x: "0%",
         y: "-100%",
-        transition: { duration: 1 },
       };
     }
     return {
-      width: "100%",
-      height: "50%",
+      width: "50%",
+      height: "100%",
       x: "0%",
       y: "200%",
-      transition: { duration: 1 },
     };
+  },
+};
+
+// "radial-gradient(circle, var(--clr-secondary) 0%, var(--clr-primary) 100%)",
+// "radial-gradient(circle, rgba(108,250,205,1) 0%, rgba(229,129,86,1) 100%)"
+
+const PRIMARY_COLOR = "var(--clr-primary)";
+const SECONDARY_COLOR = "var(--clr-secondary)";
+const BLUR_RADIUS = "10px";
+const SPREAD_RADIUS = "5px";
+
+// backgroundColor: [
+//   "radial-gradient(circle, var(--clr-secondary) 0%, var(--clr-primary) 100%)",
+//   "radial-gradient(circle, rgba(108,250,205,1) 0%, rgba(229,129,86,1) 100%)",
+//boxShadow: `0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${PRIMARY_COLOR},
+//   0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${SECONDARY_COLOR} `,
+// ],
+//
+const ball: Variants = {
+  initial: (place: PLACE) => ({
+    bottom: "-50%",
+    width: "1px",
+    opacity: 0.8,
+    borderRadius: "50%",
+    left: place === "LEFT" ? "0%" : "100%",
+  }),
+  pulsing: (place: PLACE) => ({
+    left: place === "LEFT" ? ["0%", "100%"] : ["100%", "0%"],
+    scale: [1, 1.2, 2, 1.2, 1],
+    opacity: [0.5, 0.7, 0.9, 0.7, 0.5],
+    boxShadow: [
+      `
+      0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${PRIMARY_COLOR}
+      `,
+      `
+      0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${SECONDARY_COLOR}
+      `,
+      `
+      0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${PRIMARY_COLOR}
+      `,
+      `
+      0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${SECONDARY_COLOR}
+      `,
+    ],
+    transition: {
+      duration: 0.5,
+      delay: 0.4,
+    },
+  }),
+  middle: (place: PLACE) => ({
+    margin: "0 auto",
+    bottom: place === "RIGHT" ? "0%" : "-100%",
+    transition: {
+      duration: 0,
+    },
+  }),
+  splitten: {
+    margin: "0 auto",
+    width: "100%",
+    opacity: [0.8, 0.3, 0],
+    boxShadow: `0px 0px 1px 1px ${SECONDARY_COLOR}, 
+                0px 0px 2px 2px ${PRIMARY_COLOR}`,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  completed: {
+    margin: "0 0",
+    display: "none",
   },
 };
 
@@ -95,53 +180,65 @@ function MyApp({ Component, pageProps }: AppProps) {
   const url = `https://localhost:3000/${router.route}`;
   const { showNextPage, showPreviousPage } = useNextPage();
   const [recentScroll, setRecentScroll] = useState<SCROLL_ACTION>();
-  const controls = useAnimation();
+  const controlsSquare = useAnimation();
+  const controlsBalls = useAnimation();
   const { scrollYProgress } = useViewportScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
   const [showLoader, setShowLoader] = useState<boolean>(false);
 
-  useEffect(() => {
-    const handleRouteChange = async (url: string, { shallow }: any) => {
-      await controls.start("initial");
-      await controls.start("entering");
-      await controls.start("exiting");
-      controls.start("completed");
-    };
-
-    const handleRouteChangeComplete = (url: string, { shallow }: any) => {
-      console.log("COMPLETEE");
-    };
-
-    const onRouteChangeError = (url: string, { shallow }: any) => {
-      console.log("ERROR");
-    };
-
-    router.events.on("routeChangeStart", handleRouteChange);
-    router.events.on("routeChangeComplete", handleRouteChangeComplete);
-    router.events.on("routeChangeError", onRouteChangeError);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChange);
-      router.events.off("routeChangeComplete", handleRouteChangeComplete);
-      router.events.off("routeChangeError", onRouteChangeError);
-    };
-    // eslint-disable-next-line  react-hooks/exhaustive-deps
-  }, []);
+  //  useEffect(() => {
+  //    const handleRouteChangeComplete = (url: string, { shallow }: any) => {
+  //      console.log("COMPLETEE");
+  //    };
+  //
+  //    const onRouteChangeError = (url: string, { shallow }: any) => {
+  //      console.log("ERROR");
+  //    };
+  //
+  //    router.events.on("routeChangeStart", handleRouteChange);
+  //    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+  //    router.events.on("routeChangeError", onRouteChangeError);
+  //
+  //    return () => {
+  //      router.events.off("routeChangeStart", handleRouteChange);
+  //      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+  //      router.events.off("routeChangeError", onRouteChangeError);
+  //    };
+  //    // eslint-disable-next-line  react-hooks/exhaustive-deps
+  //  }, []);
 
   const handleScroll = useCallback(
-    (e: WheelEvent) => {
-      if (e.deltaY > 0) {
-        console.log("DOWN");
+    async (e: WheelEvent) => {
+      const handleRouteChange = async () => {
+        await controlsSquare.start("initial");
+        await controlsBalls.start("initial");
 
-        setRecentScroll("DOWN");
-        showNextPage();
-      } else {
-        console.log("UP");
-        setRecentScroll("UP");
-        showPreviousPage();
-      }
+        controlsSquare.start("entering");
+        await controlsBalls.start("pulsing");
+
+        await controlsSquare.start("splitten");
+        await controlsBalls.start("middle");
+        if (e.deltaY > 0) {
+          console.log("DOWN");
+
+          setRecentScroll("DOWN");
+          showNextPage();
+        } else {
+          console.log("UP");
+          setRecentScroll("UP");
+          showPreviousPage();
+        }
+        await controlsBalls.start("splitten");
+
+        await controlsSquare.start("exiting");
+
+        controlsBalls.start("completed");
+        controlsSquare.start("completed");
+      };
+
+      await handleRouteChange();
     },
-    [showNextPage, showPreviousPage]
+    [showNextPage, showPreviousPage, controlsSquare, controlsBalls]
   );
 
   useEffect(() => {
@@ -173,30 +270,43 @@ function MyApp({ Component, pageProps }: AppProps) {
         <main className="content__main">
           <motion.div
             className="content__square content__square-right"
-            variants={variants}
-            animate={controls}
-            initial={false}
+            variants={squareVariants}
+            animate={controlsSquare}
+            initial={true}
             custom={"RIGHT"}
           >
-            <p className="content__square-message">HOLA ME GUSTA</p>
+            <motion.div
+              className="content__square-ball"
+              variants={ball}
+              animate={controlsBalls}
+              initial={true}
+              custom={"RIGHT"}
+            />
           </motion.div>
+
           <motion.div
             className="content__square content__square-left"
-            variants={variants}
-            animate={controls}
-            initial={false}
+            variants={squareVariants}
+            animate={controlsSquare}
+            initial={true}
             custom={"LEFT"}
           >
-            <p className="content__square-message">EL POLLO</p>
+            <motion.div
+              className="content__square-ball"
+              variants={ball}
+              initial={true}
+              animate={controlsBalls}
+              custom={"LEFT"}
+            />
           </motion.div>
 
           <Component {...pageProps} key={url} />
         </main>
       </Layout>
-      <NextPageButton />
     </>
   );
 }
+// <NextPageButton />
 
 export default MyApp;
 
