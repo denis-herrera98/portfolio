@@ -1,53 +1,81 @@
-import { useEffect, useCallback } from "react";
-import { useAnimation } from "framer-motion";
+import { useEffect, useCallback, useContext } from "react";
+import { AnimationControllersContext } from "../context/animation-controllers-context";
 import { useNextPage } from "../hooks/useNextPage";
 
+type ScrollChangeDirection = "UP" | "DOWN";
+interface IHandleRouteChangeProps {
+  scrollDirection?: ScrollChangeDirection;
+  directPath?: string;
+}
+
 export const usePageTransitioner = () => {
-  const { showNextPage, showPreviousPage } = useNextPage();
-  const controlsSquare = useAnimation();
-  const controlsBalls = useAnimation();
+  const { showNextPage, showPreviousPage, showSpecificRoute } = useNextPage();
+  const { controlsSquare, controlsBalls } = useContext(
+    AnimationControllersContext
+  );
 
-  const handleScroll = useCallback(
-    async (e: WheelEvent) => {
-      const handleRouteChange = async () => {
-        await controlsSquare.start("initial");
-        await controlsBalls.start("initial");
+  const handleRouteChange = useCallback(
+    async ({ scrollDirection, directPath }: IHandleRouteChangeProps) => {
+      if (!controlsSquare || !controlsBalls) return;
 
-        controlsSquare.start("entering");
-        await controlsBalls.start("pulsing");
+      await controlsSquare.start("initial");
+      await controlsBalls.start("initial");
 
-        await controlsSquare.start("splitten");
-        await controlsBalls.start("middle");
-        // DOWN
-        if (e.deltaY > 0) {
+      controlsSquare.start("entering");
+      await controlsBalls.start("pulsing");
+
+      await controlsSquare.start("splitten");
+      await controlsBalls.start("middle");
+
+      if (directPath) {
+        showSpecificRoute(directPath);
+      }
+
+      if (scrollDirection) {
+        if (scrollDirection === "DOWN") {
           showNextPage();
         } else {
-          // UP
           showPreviousPage();
         }
-        await controlsBalls.start("splitten");
+      }
 
-        await controlsSquare.start("exiting");
+      await controlsBalls.start("splitten");
+      await controlsSquare.start("exiting");
 
-        controlsBalls.start("completed");
-        controlsSquare.start("completed");
-      };
-
-      await handleRouteChange();
+      controlsBalls.start("completed");
+      controlsSquare.start("completed");
     },
-    [showNextPage, showPreviousPage, controlsSquare, controlsBalls]
+    [
+      showSpecificRoute,
+      showNextPage,
+      showPreviousPage,
+      controlsSquare,
+      controlsBalls,
+    ]
+  );
+
+  const handleScrollChange = useCallback(
+    (e: WheelEvent) => {
+      if (e.deltaY > 0) {
+        handleRouteChange({ scrollDirection: "DOWN" });
+      } else {
+        handleRouteChange({ scrollDirection: "UP" });
+      }
+    },
+    [handleRouteChange]
   );
 
   useEffect(() => {
-    window.addEventListener("wheel", handleScroll);
+    window.addEventListener("wheel", handleScrollChange);
 
     return () => {
-      window.removeEventListener("wheel", handleScroll);
+      window.removeEventListener("wheel", handleScrollChange);
     };
-  }, [handleScroll]);
+  }, [handleScrollChange]);
 
   return {
     controlsSquare,
     controlsBalls,
+    handleRouteChange,
   };
 };

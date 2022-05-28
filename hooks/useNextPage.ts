@@ -2,12 +2,14 @@ import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { ROUTES } from "../data/routes";
 
+const findIndex = (path: string) => ROUTES.findIndex((route) => route === path);
+
 export const useNextPage = () => {
   const router = useRouter();
 
   const showNextPage = useCallback(() => {
     const currentUrl = router.pathname;
-    const index = ROUTES.findIndex((route) => route === currentUrl);
+    const index = findIndex(currentUrl);
     if (!index && index !== 0) {
       return;
     }
@@ -26,7 +28,7 @@ export const useNextPage = () => {
 
   const showPreviousPage = useCallback(() => {
     const currentUrl = router.pathname;
-    const index = ROUTES.findIndex((route) => route === currentUrl);
+    const index = findIndex(currentUrl);
     if (!index && index !== 0) {
       return;
     }
@@ -43,5 +45,12 @@ export const useNextPage = () => {
     router.push(newRoute);
   }, [router]);
 
-  return { showNextPage, showPreviousPage };
+  const showSpecificRoute = useCallback(
+    (newPath: string) => {
+      router.push(newPath);
+    },
+    [router]
+  );
+
+  return { showNextPage, showPreviousPage, showSpecificRoute };
 };

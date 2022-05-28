@@ -39,4 +39,4 @@ export const MotionConfigProvider = ({ children }: Props) => {
   );
 };
 
-export const useMotionConfig = MotionConfig;
+// export const useMotionConfig = MotionConfig;
