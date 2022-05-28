@@ -1,253 +1,18 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { DefaultSeo } from "next-seo";
-import { useState, useEffect, useCallback } from "react";
-import {
-  motion,
-  AnimatePresence,
-  LayoutGroup,
-  useAnimation,
-  useViewportScroll,
-  useTransform,
-  Variants,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import { Layout } from "../components/layout/Layout";
 import "../styles/app.scss";
-import { useNextPage } from "../hooks/useNextPage";
 import { NextPageButton } from "../components/buttons/NextPageButton";
 import { useRouter } from "next/router";
-
-type SCROLL_ACTION = "DOWN" | "UP";
-type PLACE = "LEFT" | "RIGHT";
-
-const DURATION = 0.3;
-
-const squareVariants: Variants = {
-  initial: (place: PLACE) => {
-    if (place === "LEFT") {
-      return {
-        y: "0%",
-        x: "-100%",
-        width: "50%",
-        height: "100%",
-        transition: { duration: 0 },
-      };
-    }
-    return {
-      width: "50%",
-      height: "100%",
-      x: "200%",
-      y: "0%",
-      transition: { duration: 0 },
-    };
-  },
-  entering: (place: PLACE) => {
-    if (place === "LEFT") {
-      return {
-        x: ["-100%", "0%"],
-        y: "0%",
-        transition: { duration: DURATION },
-      };
-    }
-    return {
-      x: ["200%", "100%"],
-      y: "0%",
-      transition: { duration: DURATION },
-    };
-  },
-  splitten: (place: PLACE) => {
-    if (place === "LEFT") {
-      return {
-        width: "100%",
-        height: "50%",
-        x: "0%",
-        y: "0%",
-        transition: { duration: 0 },
-      };
-    }
-    return {
-      width: "100%",
-      height: "50%",
-      x: "0%",
-      y: "100%",
-      transition: { duration: 0 },
-    };
-  },
-  exiting: (place: PLACE) => {
-    if (place === "LEFT") {
-      return {
-        x: "0%",
-        y: "-100%",
-        transition: { duration: DURATION },
-      };
-    }
-
-    return {
-      x: "0%",
-      y: "200%",
-      transition: { duration: DURATION },
-    };
-  },
-  completed: (place: PLACE) => {
-    if (place === "LEFT") {
-      return {
-        width: "50%",
-        height: "100%",
-        x: "0%",
-        y: "-100%",
-      };
-    }
-    return {
-      width: "50%",
-      height: "100%",
-      x: "0%",
-      y: "200%",
-    };
-  },
-};
-
-// "radial-gradient(circle, var(--clr-secondary) 0%, var(--clr-primary) 100%)",
-// "radial-gradient(circle, rgba(108,250,205,1) 0%, rgba(229,129,86,1) 100%)"
-
-const PRIMARY_COLOR = "var(--clr-primary)";
-const SECONDARY_COLOR = "var(--clr-secondary)";
-const BLUR_RADIUS = "10px";
-const SPREAD_RADIUS = "5px";
-
-// backgroundColor: [
-//   "radial-gradient(circle, var(--clr-secondary) 0%, var(--clr-primary) 100%)",
-//   "radial-gradient(circle, rgba(108,250,205,1) 0%, rgba(229,129,86,1) 100%)",
-//boxShadow: `0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${PRIMARY_COLOR},
-//   0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${SECONDARY_COLOR} `,
-// ],
-//
-const ball: Variants = {
-  initial: (place: PLACE) => ({
-    bottom: "-50%",
-    width: "1px",
-    opacity: 0.8,
-    borderRadius: "50%",
-    left: place === "LEFT" ? "0%" : "100%",
-  }),
-  pulsing: (place: PLACE) => ({
-    left: place === "LEFT" ? ["0%", "100%"] : ["100%", "0%"],
-    scale: [1, 1.2, 2, 1.2, 1],
-    opacity: [0.5, 0.7, 0.9, 0.7, 0.5],
-    boxShadow: [
-      `
-      0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${PRIMARY_COLOR}
-      `,
-      `
-      0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${SECONDARY_COLOR}
-      `,
-      `
-      0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${PRIMARY_COLOR}
-      `,
-      `
-      0px 0px ${BLUR_RADIUS} ${SPREAD_RADIUS} ${SECONDARY_COLOR}
-      `,
-    ],
-    transition: {
-      duration: 0.5,
-      delay: 0.4,
-    },
-  }),
-  middle: (place: PLACE) => ({
-    margin: "0 auto",
-    bottom: place === "RIGHT" ? "0%" : "-100%",
-    transition: {
-      duration: 0,
-    },
-  }),
-  splitten: {
-    margin: "0 auto",
-    width: "100%",
-    opacity: [0.8, 0.3, 0],
-    boxShadow: `0px 0px 1px 1px ${SECONDARY_COLOR}, 
-                0px 0px 2px 2px ${PRIMARY_COLOR}`,
-    transition: {
-      duration: 0.5,
-    },
-  },
-  completed: {
-    margin: "0 0",
-    display: "none",
-  },
-};
+import { usePageTransitioner } from "../hooks/usePageTransitioner";
+import { squareVariants, ballVariants } from "../configs/framer-motion";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const url = `https://localhost:3000/${router.route}`;
-  const { showNextPage, showPreviousPage } = useNextPage();
-  const [recentScroll, setRecentScroll] = useState<SCROLL_ACTION>();
-  const controlsSquare = useAnimation();
-  const controlsBalls = useAnimation();
-  const { scrollYProgress } = useViewportScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
-  const [showLoader, setShowLoader] = useState<boolean>(false);
-
-  //  useEffect(() => {
-  //    const handleRouteChangeComplete = (url: string, { shallow }: any) => {
-  //      console.log("COMPLETEE");
-  //    };
-  //
-  //    const onRouteChangeError = (url: string, { shallow }: any) => {
-  //      console.log("ERROR");
-  //    };
-  //
-  //    router.events.on("routeChangeStart", handleRouteChange);
-  //    router.events.on("routeChangeComplete", handleRouteChangeComplete);
-  //    router.events.on("routeChangeError", onRouteChangeError);
-  //
-  //    return () => {
-  //      router.events.off("routeChangeStart", handleRouteChange);
-  //      router.events.off("routeChangeComplete", handleRouteChangeComplete);
-  //      router.events.off("routeChangeError", onRouteChangeError);
-  //    };
-  //    // eslint-disable-next-line  react-hooks/exhaustive-deps
-  //  }, []);
-
-  const handleScroll = useCallback(
-    async (e: WheelEvent) => {
-      const handleRouteChange = async () => {
-        await controlsSquare.start("initial");
-        await controlsBalls.start("initial");
-
-        controlsSquare.start("entering");
-        await controlsBalls.start("pulsing");
-
-        await controlsSquare.start("splitten");
-        await controlsBalls.start("middle");
-        if (e.deltaY > 0) {
-          console.log("DOWN");
-
-          setRecentScroll("DOWN");
-          showNextPage();
-        } else {
-          console.log("UP");
-          setRecentScroll("UP");
-          showPreviousPage();
-        }
-        await controlsBalls.start("splitten");
-
-        await controlsSquare.start("exiting");
-
-        controlsBalls.start("completed");
-        controlsSquare.start("completed");
-      };
-
-      await handleRouteChange();
-    },
-    [showNextPage, showPreviousPage, controlsSquare, controlsBalls]
-  );
-
-  useEffect(() => {
-    window.addEventListener("wheel", handleScroll);
-
-    return () => {
-      window.removeEventListener("wheel", handleScroll);
-    };
-  }, [handleScroll]);
+  const { controlsSquare, controlsBalls } = usePageTransitioner();
 
   return (
     <>
@@ -277,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           >
             <motion.div
               className="content__square-ball"
-              variants={ball}
+              variants={ballVariants}
               animate={controlsBalls}
               initial={true}
               custom={"RIGHT"}
@@ -293,7 +58,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           >
             <motion.div
               className="content__square-ball"
-              variants={ball}
+              variants={ballVariants}
               initial={true}
               animate={controlsBalls}
               custom={"LEFT"}
