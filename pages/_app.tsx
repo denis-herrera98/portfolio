@@ -13,7 +13,6 @@ import { AnimationControllersProvider } from "../context/animation-controllers-c
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const url = `https://localhost:3000${router.route}`;
-  usePageTransitioner();
 
   return (
     <>
