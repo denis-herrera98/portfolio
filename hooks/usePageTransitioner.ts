@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useContext } from "react";
+import { useEffect, useCallback, useContext, useState } from "react";
 import { AnimationControllersContext } from "../context/animation-controllers-context";
 import { useNextPage } from "../hooks/useNextPage";
 
@@ -14,9 +14,12 @@ export const usePageTransitioner = () => {
     AnimationControllersContext
   );
 
+  const [isSwitchComplete, setIsSwitchComplete] = useState<boolean>(true);
+
   const handleRouteChange = useCallback(
     async ({ scrollDirection, directPath }: IHandleRouteChangeProps) => {
-      if (!controlsSquare || !controlsBalls) return;
+      if (!controlsSquare || !controlsBalls || !isSwitchComplete) return;
+      setIsSwitchComplete(false);
 
       await controlsSquare.start("initial");
       await controlsBalls.start("initial");
@@ -44,6 +47,8 @@ export const usePageTransitioner = () => {
 
       controlsBalls.start("completed");
       controlsSquare.start("completed");
+
+      setIsSwitchComplete(true);
     },
     [
       showSpecificRoute,
@@ -51,6 +56,8 @@ export const usePageTransitioner = () => {
       showPreviousPage,
       controlsSquare,
       controlsBalls,
+      setIsSwitchComplete,
+      isSwitchComplete,
     ]
   );
 

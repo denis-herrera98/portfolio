@@ -2,7 +2,6 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { DefaultSeo } from "next-seo";
 import { motion } from "framer-motion";
-import { useAnimation } from "framer-motion";
 import { Layout } from "../components/layout/Layout";
 import "../styles/app.scss";
 import { NextPageButton } from "../components/buttons/NextPageButton";

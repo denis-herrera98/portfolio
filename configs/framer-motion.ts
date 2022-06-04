@@ -118,6 +118,9 @@ export const ballVariants: Variants = {
     opacity: 0.8,
     borderRadius: "50%",
     left: place === "LEFT" ? "0%" : "100%",
+    transition: {
+      duration: 0,
+    },
   }),
   pulsing: (place: PLACE) => ({
     left: place === "LEFT" ? ["0%", "100%"] : ["100%", "0%"],
