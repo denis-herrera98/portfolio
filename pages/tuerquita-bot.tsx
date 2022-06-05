@@ -1,15 +1,12 @@
 import type { NextPage } from "next";
 import { Section } from "../components/section/Section";
+import { Page } from "../components/layout/Page";
 
 const TuerquitaBot: NextPage = () => {
   return (
-    <div className="page">
-      <h1 className="page__title"> Personal Project </h1>
-
-      <div className="page__body">
-        <Section title="BOOOOT" description="BOOOOT" />
-      </div>
-    </div>
+    <Page tittle="Proyect personal">
+      <Section title="BOOOOT" description="BOOOOT" />
+    </Page>
   );
 };
 

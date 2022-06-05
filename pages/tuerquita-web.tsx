@@ -9,9 +9,9 @@ import {
 import { Section } from "../components/section/Section";
 import { Technologies } from "../components/section/Technologie";
 import { TechnologiesDisplayer } from "../components/section/TechnologiesDisplayer";
-import { ITecnologie } from "../interfaces/technologie";
+import { Page } from "../components/layout/Page";
 
-const myTecnologies: ITecnologie[] = [
+const myTecnologies = [
   { name: "Sass", icon: Sass },
   { name: "Typescript", icon: Typescript },
   { name: "Next.js", icon: NextJs },
@@ -21,20 +21,17 @@ const myTecnologies: ITecnologie[] = [
 
 const TuerquitaWeb: NextPage = () => {
   return (
-    <div className="page ">
-      <h1 className="page__title"> Personal Project </h1>
-      <div className="page__body">
-        <Section
-          title="Tuerquita web"
-          description="A web page developed in Next.js. It contains a Party Creator where you can find other League Of Legends players to play with and a real-time chat."
-        />
-        <TechnologiesDisplayer>
-          {myTecnologies.map((tecnologie, i) => (
-            <Technologies height={30} width={30} {...tecnologie} key={i} />
-          ))}
-        </TechnologiesDisplayer>
-      </div>
-    </div>
+    <Page tittle="Personal Project">
+      <Section
+        title="Tuerquita web"
+        description="A web page developed in Next.js. It contains a Party Creator where you can find other League Of Legends players to play with and a real-time chat."
+      />
+      <TechnologiesDisplayer>
+        {myTecnologies.map((tecnologie, i) => (
+          <Technologies height={30} width={30} {...tecnologie} key={i} />
+        ))}
+      </TechnologiesDisplayer>
+    </Page>
   );
 };
 

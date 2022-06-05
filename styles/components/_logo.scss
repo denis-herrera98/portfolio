@@ -7,10 +7,12 @@
     &__title {
         font-size: clamp(1.6rem, 2vw, 2rem);
         padding-bottom: .5rem;
+        white-space: nowrap; 
     }
 
     &__subtitle {
         font-size: clamp(1.4rem, 1.6vw, 1.6rem);
         color: var(--clr-primary);
+        white-space: nowrap; 
     }
 }

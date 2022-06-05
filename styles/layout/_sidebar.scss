@@ -8,6 +8,7 @@
     justify-content: flex-end;
     position: relative;
     flex-shrink: 0;
+    min-width: 40px;
     
 
     .social-links {
@@ -20,7 +21,7 @@
 
     .page-indicators {
         top: 50%;
-        left: 30%;
+        left: 50%;
         transform: translate(-50%, -50%);
         position: absolute;
 
