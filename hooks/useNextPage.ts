@@ -10,13 +10,10 @@ export const useNextPage = () => {
   const showNextPage = useCallback(() => {
     const currentUrl = router.pathname;
     const index = findIndex(currentUrl);
-    if (!index && index !== 0) {
-      return;
-    }
 
     const newRouteIndex = index + 1;
-    if (newRouteIndex > ROUTES.length) {
-      return;
+    if (newRouteIndex === ROUTES.length) {
+      router.push(ROUTES[0]);
     }
 
     const newRoute = ROUTES[newRouteIndex];
@@ -29,8 +26,8 @@ export const useNextPage = () => {
   const showPreviousPage = useCallback(() => {
     const currentUrl = router.pathname;
     const index = findIndex(currentUrl);
-    if (!index && index !== 0) {
-      return;
+    if (index === 0) {
+      router.push(ROUTES[ROUTES.length - 1]);
     }
 
     const newRouteIndex = index - 1;

@@ -18,7 +18,6 @@ export const usePageTransitioner = () => {
 
   const handleRouteChange = useCallback(
     async ({ scrollDirection, directPath }: IHandleRouteChangeProps) => {
-      console.log(isSwitchComplete);
       if (!controlsSquare || !controlsBalls || !isSwitchComplete) return;
       setIsSwitchComplete(false);
 
